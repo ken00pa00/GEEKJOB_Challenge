@@ -19,12 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/challenge11_5"})
 public class challenge11_5 extends HttpServlet {
 
-    void add(PrintWriter pw){
+    String[] add(){
         String[] aaa ={"人物のID" , "名前" , "生年月日" , "住所"};
-        pw.println(aaa[1]);
-        pw.println(aaa[2]);
-        pw.println(aaa[3]);
-        return;
+        return aaa;
     }
     
     /**
@@ -41,9 +38,12 @@ public class challenge11_5 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            add(out);
-            
+            String[] prof = add();
+            for(int i = 1; i < 4; i++) {
+            out.println(prof[i]);
         }
+        
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
