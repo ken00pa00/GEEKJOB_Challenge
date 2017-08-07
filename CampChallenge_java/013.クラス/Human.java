@@ -19,6 +19,7 @@ public class Human {
         this.age = a;
     }
     
+    
     public void setHuman(String n, int a){
         
         System.out.println(n);
@@ -33,5 +34,15 @@ public class Human {
         hito.setHuman("添田亮司", 34);
     }
 }
+
+class Human_2 extends Human {
     
+    public void clearHuman() {
+        
+        name = "";
+        
+        String s = String.valueOf(this.age);
+        s ="";
+    }
+}    
 
