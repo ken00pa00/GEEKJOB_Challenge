@@ -4,45 +4,141 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author horiguchikentarou
  */
-public class Human {
+abstract public class Human {
     
-    public String name = "";
-    public int age = 0;
-    
-    public void Human(String n, int a) {
-        
-        this.name = n;
-        this.age = a;
-    }
-    
-    
-    public void setHuman(String n, int a){
-        
-        System.out.println(n);
-	System.out.println(a);
-    }
-
-    public static void main(String[] args) {
-        
-        Human hito = new Human();
-        
-        hito.age = 40;
-        hito.setHuman("添田亮司", 34);
-    }
+    abstract public Integer open();
+    abstract public void setCard(Integer ArrayList[]);
+    abstract public boolean checkSum();
+    ArrayList<Integer> myCards = new ArrayList<>();
 }
 
-class Human_2 extends Human {
+abstract class Dealer extends Human {
     
-    public void clearHuman() {
-        
-        name = "";
-        
-        String s = String.valueOf(this.age);
-        s ="";
+    int jqk = 10;
+    
+    ArrayList<Integer> cards = new ArrayList<>();
+    {
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 10; j++){
+            cards.add(j);
+        }
+        for(int k = 0; k < 4; k++){
+            cards.add(jqk);
+        }
+    }
+    }
+    
+    
+    public ArrayList deal(){
+    
+    ArrayList<Integer> hand = new ArrayList<>();
+    
+    Random rnd = new Random();
+    
+    for(int i = 0; i < 2; i++){
+        int index = rnd.nextInt(cards.size());
+        hand.add(cards.get(index));
+    }
+    return hand;
+    }
+    
+    
+    public ArrayList hit(){
+    
+    ArrayList<Integer> hit = new ArrayList<>();
+    
+    Random rnd = new Random();
+    
+    int index = rnd.nextInt(cards.size());
+    hit.add(cards.get(index));
+    return hit;
+    }
+    
+    
+    @Override
+    public Integer open(){
+        int total = 0;
+        for(int i = 0; i < myCards.size(); i++){
+            total = total + myCards.get(i); 
+        }
+        return total;
+    }
+    
+    
+    public void setCard(ArrayList<Integer> setCard){
+        for(int i = 0; i < setCard.size(); i++){
+            myCards.add(setCard.get(i));
+        }
+    }
+    
+    
+    @Override
+    public boolean checkSum(){
+    
+    int total = open();
+    
+    if(total < 11){
+        for(int i =0; i < myCards.size(); i++){
+            if(myCards.get(i) == 1){
+                myCards.set(i, 11);
+            }
+        } 
+    }
+    return total < 17;
+    }
+    
+    
+    @Override
+    public void setCard(Integer[] ArrayList) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }    
-
+    
+    
+abstract class User extends Human {
+    
+    @Override
+    public Integer open(){
+        int total = 0;
+        for(int i = 0; i < myCards.size(); i++){
+            total = total + myCards.get(i); 
+        }
+        return total;
+    }
+    
+    
+    public void setCard(ArrayList<Integer> setCard){
+        for(int i = 0; i < setCard.size(); i++){
+            myCards.add(setCard.get(i));
+        }
+    }
+    
+    
+    @Override
+    public boolean checkSum(){
+    
+    int total = open();
+    
+    if(total < 11){
+        for(int i =0; i < myCards.size(); i++){
+            if(myCards.get(i) == 1){
+                myCards.set(i, 11);
+            }
+        }
+    }
+    return total < 17;
+    }
+    
+    @Override
+    public void setCard(Integer[] ArrayList) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+}
